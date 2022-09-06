@@ -16,7 +16,7 @@ import java.util.zip.GZIPInputStream;
  * @see HeapMinPQ
  * @see OptimizedHeapMinPQ
  */
-class ModeratorMultiTest {
+class ModeratorMultiTests {
     /**
      * Path to the toxic content.
      */
@@ -53,7 +53,7 @@ class ModeratorMultiTest {
         return refOutput.equals(testOutput);
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         // We go toxicity -> comment because all toxicity values used for testing need to be unique.
         Map<Double, String> toxic = new LinkedHashMap<>();
 

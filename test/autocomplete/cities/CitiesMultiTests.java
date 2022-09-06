@@ -16,7 +16,7 @@ import java.util.zip.GZIPInputStream;
  * @see BinarySearchAutocomplete
  * @see TernarySearchTreeAutocomplete
  */
-class CitiesMultiTest {
+class CitiesMultiTests {
     /**
      * Maximum number of matches to print.
      */
