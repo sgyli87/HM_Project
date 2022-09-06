@@ -1,6 +1,7 @@
 package autocomplete.cities;
 
-import autocomplete.*;
+import autocomplete.Autocomplete;
+import autocomplete.TreeSetAutocomplete;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -13,13 +14,9 @@ import java.util.zip.GZIPInputStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Compare different {@link Autocomplete} implementations to check that they compute the same values.
+ * Abstract class providing test cases for all {@link Autocomplete} implementations.
  *
  * @see Autocomplete
- * @see TreeSetAutocomplete
- * @see SequentialSearchAutocomplete
- * @see BinarySearchAutocomplete
- * @see TernarySearchTreeAutocomplete
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class AutocompleteTests {
