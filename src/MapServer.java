@@ -1,5 +1,3 @@
-package huskymaps;
-
 import graphs.shortestpaths.AStarSolver;
 import io.javalin.Javalin;
 import io.javalin.core.validation.JavalinValidation;
@@ -32,11 +30,11 @@ public class MapServer {
      * The OpenStreetMap XML file path. Downloaded from <a href="http://download.bbbike.org/osm/">BBBike</a>
      * using custom region selection.
      */
-    private static final String OSM_DB_PATH = "data/huskymaps/seattle-small.osm.gz";
+    private static final String OSM_DB_PATH = "seattle.osm.gz";
     /**
      * The place-importance TSV data file path from OpenStreetMap.
      */
-    private static final String PLACES_PATH = "data/huskymaps/places.tsv.gz";
+    private static final String PLACES_PATH = "places.tsv.gz";
     /**
      * Maximum number of autocomplete search results.
      */
@@ -54,7 +52,7 @@ public class MapServer {
         SpatialContext context = SpatialContext.GEO;
         MapGraph map = new MapGraph(OSM_DB_PATH, PLACES_PATH, context);
         Javalin app = Javalin.create(config -> {
-            config.addSinglePageRoot("/", "huskymaps/index.html");
+            config.addSinglePageRoot("/", "index.html");
         }).start(port());
         ConcurrentHashMap<String, BufferedImage> cache = new ConcurrentHashMap<>();
         app.get("/map/{lon},{lat},{zoom}/{width}x{height}", ctx -> {

@@ -1,5 +1,3 @@
-package huskymaps;
-
 import autocomplete.Autocomplete;
 import autocomplete.TreeSetAutocomplete;
 import graphs.AStarGraph;
@@ -93,9 +91,6 @@ public class MapGraph implements AStarGraph<Point> {
      * @throws FileNotFoundException if there is no file at the specified path.
      */
     private static InputStream fileStream(String path) throws FileNotFoundException {
-        if (System.getenv("PORT") == null) {
-            return new FileInputStream(path);
-        }
         return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
     }
 
