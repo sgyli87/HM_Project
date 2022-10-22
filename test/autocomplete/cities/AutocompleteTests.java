@@ -25,7 +25,7 @@ public abstract class AutocompleteTests {
      */
     private static final int MAX_CITIES = 100;
     /**
-     * Path to the cities dataset.
+     * Path to the cities' dataset.
      */
     private static final String PATH = "data/cities.tsv.gz";
     /**
@@ -109,11 +109,11 @@ public abstract class AutocompleteTests {
         /**
          * Step size increment. Making this smaller means experiments run slower.
          */
-        private static final int STEP = 1000;
+        private static final int STEP = 100;
 
         @ParameterizedTest
         @ValueSource(strings = {"Sea"})
-        @Disabled
+
         void addAllAllMatches(String prefix) {
             for (int size = STEP; size <= MAX_SIZE; size += STEP) {
                 System.out.print(size);

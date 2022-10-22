@@ -98,11 +98,6 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
         public Node getRoot(){
             return root;
         }
-        public TST(final List<CharSequence> words){
-            for(CharSequence word: words){
-
-            }
-        }
 
         //insert
         public Node insert(final CharSequence word){
@@ -114,19 +109,15 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
         }
 
         private Node insert(Node node, final char[] word, int idx){
-
             char currChar = word[idx];
-
             if(node == null){
                 node = new Node(currChar);
             }
-
             if(currChar < node.getData()){
                 node.left = insert(node.getLeft(), word, idx);
             }else if(currChar > node.getData()){
                 node.right = insert(node.getRight(), word, idx);
             }else{
-
                 if(idx + 1 < word.length){
                     node.mid = insert(node.getMid(), word, idx + 1 );
                 }
@@ -136,30 +127,19 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
             }
             return node;
         }
-
         public void startsWith(final CharSequence prefix, List<CharSequence> result){
-
             Node subTST = startsWith(root, prefix.toString(), 0);
-
             if(subTST == null) return;
-
             List<String> temp = new ArrayList<>();
             StringBuilder sb = new StringBuilder(prefix.toString());
-
-
             collect(subTST.getMid(), sb, temp);
-
             result.addAll(temp);
-
             //throw new UnsupportedOperationException("Not implemented yet");
         }
 
         private Node startsWith(Node node, String prefix, int idx){
-
             if(node == null) return null;
-
             char currChar = prefix.charAt(idx);
-
             if(currChar < node.getData()){
                 startsWith(node.getLeft(), prefix, idx);
             }
@@ -169,25 +149,16 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
             else if (idx + 1 < prefix.length()){
                 startsWith(node.getMid(), prefix, idx + 1);
             }
-
             return node;
         }
 
         private void collect(Node node, StringBuilder prefix, List<String> result){
-
             if(node==null) return;
-
             collect(node.getLeft(), prefix, result);
-
             if(node.isTerm()) result.add(prefix.toString() + node.getData());
-
             collect(node.getMid(), prefix.append(node.getData()), result);
-
             prefix.deleteCharAt(prefix.length()-1);
-
             collect(node.getRight(), prefix, result);
         }
-
-
     }
 }
