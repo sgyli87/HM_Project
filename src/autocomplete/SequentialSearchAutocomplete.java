@@ -15,6 +15,7 @@ public class SequentialSearchAutocomplete implements Autocomplete {
      */
     private final List<CharSequence> terms;
 
+
     /**
      * Constructs an empty instance.
      */
@@ -42,10 +43,8 @@ public class SequentialSearchAutocomplete implements Autocomplete {
                 result.add(term);
                 //      flag = true;
             }
-
         }
         return result;
-
         // throw new UnsupportedOperationException("Not implemented yet");
     }
 }

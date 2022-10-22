@@ -23,7 +23,7 @@ public abstract class AutocompleteTests {
     /**
      * Maximum number of cities to parse.
      */
-    private static final int MAX_CITIES = 500000;
+    private static final int MAX_CITIES = 100;
     /**
      * Path to the cities dataset.
      */
@@ -113,6 +113,7 @@ public abstract class AutocompleteTests {
 
         @ParameterizedTest
         @ValueSource(strings = {"Sea"})
+        @Disabled
         void addAllAllMatches(String prefix) {
             for (int size = STEP; size <= MAX_SIZE; size += STEP) {
                 System.out.print(size);

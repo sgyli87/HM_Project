@@ -1,5 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="MapServer" type="Application" factoryName="Application" nameIsGenerated="true">
+    <envs>
+      <env name="TOKEN" value="pk.eyJ1IjoieWFuZzEyMzQ0NCIsImEiOiJjbDk1NXMxeXQwa3FrM29vemM5MTV4dmRvIn0.hCKV0J0xS-tEWZl4z1CraA" />
+    </envs>
     <option name="MAIN_CLASS_NAME" value="MapServer" />
     <module name="huskymaps" />
     <extension name="coverage">
