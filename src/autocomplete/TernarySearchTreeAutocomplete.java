@@ -14,15 +14,15 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
     /**
      * The overall root of the tree: the first character of the first autocompletion term added to this tree.
      */
-    private Node overallRoot;
+    //private Node overallRoot;
 
     private TST tree;
     /**
      * Constructs an empty instance.
      */
     public TernarySearchTreeAutocomplete() {
-        overallRoot = null;
-        tree = new TST(overallRoot);
+        //overallRoot = null;
+        tree = new TST();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
         data.addAll(terms);
 
         for(CharSequence d: data){
-            tree.insert(d);
+            tree.insert(d.toString());
         }
 
     }
@@ -41,7 +41,7 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
         // TODO: Replace with your code
         List<CharSequence> result = new ArrayList<>();
 
-        tree.startsWith(prefix, result);
+        tree.startsWith(prefix);
 
         return result;
     }
@@ -50,7 +50,7 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
      * A search tree node representing a single character in an autocompletion term.
      */
     private static class Node {
-        private final char data;
+        private char data;
         private boolean isTerm;
         private Node left;
         private Node mid;
@@ -62,6 +62,10 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
             this.left = null;
             this.mid = null;
             this.right = null;
+        }
+
+        public Node(){
+
         }
 
         public char getData() {
@@ -91,8 +95,8 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
     private static class TST{
         private Node root;
 
-        public TST(Node root){
-            this.root = root;
+        public TST(){
+            root = new Node('*');
         }
 
         public Node getRoot(){
@@ -100,65 +104,73 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
         }
 
         //insert
-        public Node insert(final CharSequence word){
-            if(word == null || word.length()==0){
-                return null;
-            }
-            insert(this.root, word.toString().toUpperCase().toCharArray(), 0);
-            return getRoot();
+        public void insert(final String word){
+
+            if(word == null || word.length()==0) return;
+
+            insert(root, word.toUpperCase().toCharArray(), 0);
         }
 
         private Node insert(Node node, final char[] word, int idx){
+
             char currChar = word[idx];
+
             if(node == null){
                 node = new Node(currChar);
             }
+
             if(currChar < node.getData()){
-                node.left = insert(node.getLeft(), word, idx);
+                node.left = insert(node.left, word, idx);
             }else if(currChar > node.getData()){
-                node.right = insert(node.getRight(), word, idx);
-            }else{
-                if(idx + 1 < word.length){
-                    node.mid = insert(node.getMid(), word, idx + 1 );
-                }
-                else {
-                    node.setTerm(true);
-                }
+                node.right = insert(node.right, word, idx);
+            }else if(idx + 1 < word.length){
+                node.mid = insert(node.mid, word, idx + 1 );
+            }
+            else {
+                node.isTerm = true;
             }
             return node;
         }
-        public void startsWith(final CharSequence prefix, List<CharSequence> result){
-            Node subTST = startsWith(root, prefix.toString(), 0);
-            if(subTST == null) return;
-            List<String> temp = new ArrayList<>();
-            StringBuilder sb = new StringBuilder(prefix.toString());
-            collect(subTST.getMid(), sb, temp);
-            result.addAll(temp);
-            //throw new UnsupportedOperationException("Not implemented yet");
+        public List<CharSequence> startsWith(final CharSequence prefix){
+            List<CharSequence> res = new ArrayList<>();
+
+            Node subTST = startsWith(this.root, prefix.toString(), 0);
+
+            if(subTST == null) return res;
+
+            if(subTST.isTerm()) res.add(prefix);
+
+            collect(subTST.mid, new StringBuilder(prefix), res);
+
+            return res;
         }
 
         private Node startsWith(Node node, String prefix, int idx){
             if(node == null) return null;
+
             char currChar = prefix.charAt(idx);
+
             if(currChar < node.getData()){
-                startsWith(node.getLeft(), prefix, idx);
+                return startsWith(node.left, prefix, idx);
             }
             else if(currChar > node.getData()){
-                startsWith(node.getRight(), prefix, idx);
+                return startsWith(node.right, prefix, idx);
             }
-            else if (idx + 1 < prefix.length()){
-                startsWith(node.getMid(), prefix, idx + 1);
+            else if (idx < prefix.length() - 1){
+                return startsWith(node.mid, prefix, idx + 1);
             }
-            return node;
+            else return node;
         }
 
-        private void collect(Node node, StringBuilder prefix, List<String> result){
+        private void collect(Node node, StringBuilder prefix, List<CharSequence> result){
             if(node==null) return;
-            collect(node.getLeft(), prefix, result);
-            if(node.isTerm()) result.add(prefix.toString() + node.getData());
-            collect(node.getMid(), prefix.append(node.getData()), result);
+            collect(node.left, prefix, result);
+            if(node.isTerm()) {
+                result.add(prefix.toString() + node.getData());
+            }
+            collect(node.mid, prefix.append(node.getData()), result);
             prefix.deleteCharAt(prefix.length()-1);
-            collect(node.getRight(), prefix, result);
+            collect(node.right, prefix, result);
         }
     }
 }

@@ -23,7 +23,7 @@ public abstract class AutocompleteTests {
     /**
      * Maximum number of cities to parse.
      */
-    private static final int MAX_CITIES = 100;
+    private static final int MAX_CITIES = 10000;
     /**
      * Path to the cities' dataset.
      */
@@ -63,7 +63,7 @@ public abstract class AutocompleteTests {
 
     @Test
     void comparePrefixSea() {
-        assertAllMatches("Sea");
+        assertAllMatches("*Sea");
     }
 
     @Test
