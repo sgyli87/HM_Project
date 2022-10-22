@@ -103,16 +103,13 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
 
         //insert
         public void insert(final String word){
-
             if(word == null || word.length()==0) return;
-
             insert(root, word.toUpperCase().toCharArray(), 0);
         }
 
         private Node insert(Node node, final char[] word, int idx){
 
             char currChar = word[idx];
-
             if(node == null){
                 node = new Node(currChar);
             }
@@ -131,23 +128,16 @@ public class TernarySearchTreeAutocomplete implements Autocomplete {
         }
         public List<CharSequence> startsWith(final CharSequence prefix){
             List<CharSequence> res = new ArrayList<>();
-
             Node subTST = startsWith(this.root, prefix.toString(), 0);
-
             if(subTST == null) return res;
-
             if(subTST.isTerm()) res.add(prefix);
-
             collect(subTST.mid, new StringBuilder(prefix), res);
-
             return res;
         }
 
         private Node startsWith(Node node, String prefix, int idx){
             if(node == null) return null;
-
             char currChar = prefix.charAt(idx);
-
             if(currChar < node.getData()){
                 return startsWith(node.left, prefix, idx);
             }
