@@ -1,9 +1,6 @@
 package autocomplete;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Binary search implementation of the {@link Autocomplete} interface.
@@ -34,6 +31,7 @@ public class BinarySearchAutocomplete implements Autocomplete {
     public List<CharSequence> allMatches(CharSequence prefix) {
         //throw new UnsupportedOperationException("Not implemented yet");
         List<CharSequence> result = new ArrayList<>();
+        Set<CharSequence> record = new HashSet<>();
 
         if(prefix == null || prefix.length() == 0){
             return result;
@@ -41,18 +39,15 @@ public class BinarySearchAutocomplete implements Autocomplete {
 
         int pos = Collections.binarySearch(terms, prefix, CharSequence::compare);
 
-        int startindex = -1;
+        int start = pos >= 0 ? pos : -(pos+1);
 
-        if(pos >= 0){
-            startindex = pos;
-        }
-        else{
-            startindex = -(pos+1);
-        }
-
-        for(int i = startindex; i < terms.size(); i++) {
-            if (Autocomplete.isPrefixOf(prefix, terms.get(i))) {
-                result.add(terms.get(i));
+        for(int i = start; i < terms.size(); i++) {
+            CharSequence tmp = terms.get(i);
+            if (!Autocomplete.isPrefixOf(prefix, tmp)) {
+                if(!record.contains(tmp)) {
+                    record.add(tmp);
+                    result.add(tmp);
+                }
             } else {
                 break;
             }
