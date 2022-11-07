@@ -28,14 +28,16 @@ public class UnsortedArrayMinPQ<T> implements ExtrinsicMinPQ<T> {
         if (contains(item)) {
             throw new IllegalArgumentException("Already contains " + item);
         }
-        // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+        PriorityNode<T> newNode = new PriorityNode(item, priority);
+        items.add(newNode);
     }
 
     @Override
     public boolean contains(T item) {
-        // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+        for(PriorityNode<T> n: items){
+            if(n.item().equals(item)) return true;
+        }
+        return false;
     }
 
     @Override
@@ -43,8 +45,18 @@ public class UnsortedArrayMinPQ<T> implements ExtrinsicMinPQ<T> {
         if (isEmpty()) {
             throw new NoSuchElementException("PQ is empty");
         }
-        // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+
+        double minPriority = items.get(0).priority();
+
+        int minIdx = 0;
+
+        for(int i = 0; i < items.size(); i++){
+            if(items.get(i).priority() < minPriority){
+                minIdx = i;
+            }
+        }
+
+        return items.get(minIdx).item();
     }
 
     @Override
@@ -52,8 +64,19 @@ public class UnsortedArrayMinPQ<T> implements ExtrinsicMinPQ<T> {
         if (isEmpty()) {
             throw new NoSuchElementException("PQ is empty");
         }
-        // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+
+        double minPriority = items.get(0).priority();
+
+        int minIdx = 0;
+
+        for(int i = 0; i < items.size(); i++){
+            if(items.get(i).priority() < minPriority){
+                minIdx = i;
+            }
+        }
+
+        return items.remove(minIdx).item();
+
     }
 
     @Override
@@ -61,13 +84,17 @@ public class UnsortedArrayMinPQ<T> implements ExtrinsicMinPQ<T> {
         if (!contains(item)) {
             throw new NoSuchElementException("PQ does not contain " + item);
         }
-        // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+        for(int i = 0; i < items.size(); i++){
+            if(items.get(i).item().equals(item)){
+                items.remove(i);
+                items.add(new PriorityNode<T>(item, priority));
+                break;
+            }
+        }
     }
 
     @Override
     public int size() {
-        // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+        return items.size();
     }
 }

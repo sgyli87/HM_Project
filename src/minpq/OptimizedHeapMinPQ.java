@@ -31,14 +31,17 @@ public class OptimizedHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         if (contains(item)) {
             throw new IllegalArgumentException("Already contains " + item);
         }
-        // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+
+        PriorityNode<T> newNode = new PriorityNode(item, priority);
+        items.add(newNode);
+        itemToIndex.put(newNode.item(), items.indexOf(newNode));
     }
 
     @Override
     public boolean contains(T item) {
         // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+        if(itemToIndex.containsKey(item)) return true;
+        return false;
     }
 
     @Override
@@ -47,7 +50,16 @@ public class OptimizedHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
             throw new NoSuchElementException("PQ is empty");
         }
         // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+        double minPriority = items.get(0).priority();
+        int minIdx = 0;
+
+        for(int i = 0; i < items.size(); i++){
+            if(items.get(i).priority() < minPriority){
+                minIdx = i;
+            }
+        }
+
+        return items.get(minIdx).item();
     }
 
     @Override
@@ -55,8 +67,22 @@ public class OptimizedHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         if (isEmpty()) {
             throw new NoSuchElementException("PQ is empty");
         }
-        // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+        double minPriority = items.get(0).priority();
+
+        int minIdx = 0;
+
+        for(int i = 0; i < items.size(); i++){
+            if(items.get(i).priority() < minPriority){
+                minIdx = i;
+            }
+        }
+
+        PriorityNode<T> toRemove = items.get(minIdx);
+
+        items.remove(minIdx);
+        itemToIndex.remove(toRemove.item());
+
+        return toRemove.item();
     }
 
     @Override
@@ -64,13 +90,23 @@ public class OptimizedHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         if (!contains(item)) {
             throw new NoSuchElementException("PQ does not contain " + item);
         }
-        // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+
+        int removeIdx = itemToIndex.get(item);
+
+        items.remove(removeIdx);
+
+        itemToIndex.remove(item);
+
+        PriorityNode<T> newNode = new PriorityNode(item, priority);
+
+        items.add(newNode);
+
+        itemToIndex.put(newNode.item(), items.indexOf(newNode));
     }
 
     @Override
     public int size() {
         // TODO: Replace with your code
-        throw new UnsupportedOperationException("Not implemented yet");
+        return items.size();
     }
 }
