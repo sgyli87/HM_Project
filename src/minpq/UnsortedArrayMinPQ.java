@@ -53,9 +53,10 @@ public class UnsortedArrayMinPQ<T> implements ExtrinsicMinPQ<T> {
         for(int i = 0; i < items.size(); i++){
             if(items.get(i).priority() < minPriority){
                 minIdx = i;
+                minPriority = items.get(i).priority();
             }
         }
-
+//        double minpr = items.get(minIdx).priority();
         return items.get(minIdx).item();
     }
 
@@ -72,6 +73,7 @@ public class UnsortedArrayMinPQ<T> implements ExtrinsicMinPQ<T> {
         for(int i = 0; i < items.size(); i++){
             if(items.get(i).priority() < minPriority){
                 minIdx = i;
+                minPriority = items.get(i).priority();
             }
         }
 

@@ -56,6 +56,7 @@ public class OptimizedHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         for(int i = 0; i < items.size(); i++){
             if(items.get(i).priority() < minPriority){
                 minIdx = i;
+                minPriority = items.get(i).priority();
             }
         }
 
@@ -74,6 +75,7 @@ public class OptimizedHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         for(int i = 0; i < items.size(); i++){
             if(items.get(i).priority() < minPriority){
                 minIdx = i;
+                minPriority = items.get(i).priority();
             }
         }
 

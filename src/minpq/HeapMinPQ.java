@@ -71,7 +71,8 @@ public class HeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         PriorityQueue<PriorityNode<T>> newQueue = new PriorityQueue<>();
         while(!pq.isEmpty()){
             if(!pq.peek().item().equals(item)){
-                newQueue.add(pq.poll());
+                PriorityNode<T> currentItem = pq.poll();
+                newQueue.add(currentItem);
             }
             else {
                 PriorityNode<T> changedNode = pq.poll();
