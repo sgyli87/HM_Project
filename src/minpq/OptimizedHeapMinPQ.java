@@ -35,8 +35,9 @@ public class OptimizedHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
 
         PriorityNode<T> newNode = new PriorityNode(item, priority);
         items.add(newNode);
-        swim(size());
         itemToIndex.put(newNode.item(), items.indexOf(newNode));
+        swim(size());
+
     }
 
     @Override
@@ -150,7 +151,9 @@ public class OptimizedHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     private void swap(int index1, int index2) {
         PriorityNode<T> temp = items.get(index1);
         items.set(index1, items.get(index2));
+        itemToIndex.put(items.get(index2).item(), index1);
         items.set(index2, temp);
+        itemToIndex.put(temp.item(), index2);
     }
     /** Bubbles up the node currently at the given index. */
     private void swim(int index) {
