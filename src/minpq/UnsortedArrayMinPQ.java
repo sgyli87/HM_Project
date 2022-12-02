@@ -46,18 +46,17 @@ public class UnsortedArrayMinPQ<T> implements ExtrinsicMinPQ<T> {
             throw new NoSuchElementException("PQ is empty");
         }
 
-        double minPriority = items.get(0).priority();
+        double minPriority = Integer.MAX_VALUE;
+        T minItem = null;
 
-        int minIdx = 0;
-
-        for(int i = 0; i < items.size(); i++){
-            if(items.get(i).priority() < minPriority){
-                minIdx = i;
-                minPriority = items.get(i).priority();
+        for(PriorityNode<T> node : items){
+            if(node.priority() < minPriority){
+                minItem = node.item();
+                minPriority = node.priority();
             }
         }
-//        double minpr = items.get(minIdx).priority();
-        return items.get(minIdx).item();
+
+        return minItem;
     }
 
     @Override
@@ -70,7 +69,7 @@ public class UnsortedArrayMinPQ<T> implements ExtrinsicMinPQ<T> {
 
         int minIdx = 0;
 
-        for(int i = 0; i < items.size(); i++){
+        for(int i = 1; i < items.size(); i++){
             if(items.get(i).priority() < minPriority){
                 minIdx = i;
                 minPriority = items.get(i).priority();
@@ -86,10 +85,9 @@ public class UnsortedArrayMinPQ<T> implements ExtrinsicMinPQ<T> {
         if (!contains(item)) {
             throw new NoSuchElementException("PQ does not contain " + item);
         }
-        for(int i = 0; i < items.size(); i++){
-            if(items.get(i).item().equals(item)){
-                items.remove(i);
-                items.add(new PriorityNode<T>(item, priority));
+        for (PriorityNode<T> node : items) {
+            if (node.item().equals(item)) {
+                node.setPriority(priority);
                 break;
             }
         }
