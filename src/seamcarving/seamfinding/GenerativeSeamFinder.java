@@ -71,7 +71,7 @@ public class GenerativeSeamFinder implements SeamFinder {
          */
         private final Node source = new Node() {
             @Override
-            //TODO: Replace
+            //TODO: Replace with your code
             public List<Edge<Node>> neighbors(Picture picture, EnergyFunction f) {
                 List<Edge<Node>> result = new ArrayList<>(picture.height());
                 for(int j = 0; j < picture.height(); j++){
@@ -136,10 +136,15 @@ public class GenerativeSeamFinder implements SeamFinder {
             public List<Edge<Node>> neighbors(Picture picture, EnergyFunction f) {
                 // TODO: Replace with your code
                 List<Edge<Node>> result = new ArrayList<>(picture.height());
-                for(int z = this.y - 1; z <= this.y+1; z++){
-                    if( (z >= 0 && z < picture.height()) && x < picture.width()-1){
-                        Pixel to = new Pixel(x+1, z);
-                        result.add(new Edge<>(this, to, f.apply(picture, x+1, z)));
+                if (x == picture.width() - 1) {
+                    result.add(new Edge<>(this, sink, 0));
+                }
+                else{
+                    for(int z = y - 1; z <= y+1; ++z){
+                        if( (z >= 0 && z < picture.height())){
+                            Pixel to = new Pixel(x+1, z);
+                            result.add(new Edge<>(this, to, f.apply(picture, x+1, z)));
+                        }
                     }
                 }
                 return result;

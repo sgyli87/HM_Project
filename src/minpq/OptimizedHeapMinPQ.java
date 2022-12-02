@@ -95,9 +95,7 @@ public class OptimizedHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         return items.size()-1;
     }
     /** Returns the index of the given index's parent node. */
-    private static int getParent(int index) {
-        return index / 2;
-    }
+    private static int getParent(int index) {return index / 2;}
     /** Returns the index of the given index's left child. */
     private static int getLeft(int index) {
         return index * 2;
@@ -135,7 +133,8 @@ public class OptimizedHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     /** Bubbles up the node currently at the given index. */
     private void swim(int index) {
         int parent = getParent(index);
-        while (isAccessible(parent) && items.get(index).priority() < (items.get(parent)).priority() ) {
+        while (isAccessible(parent) &&
+                items.get(index).priority() < (items.get(parent)).priority() ) {
             swap(index, parent);
             index = parent;
             parent = getParent(index);
@@ -145,7 +144,8 @@ public class OptimizedHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     /** Bubbles down the node currently at the given index. */
     private void sink(int index) {
         int child = min(getLeft(index), getRight(index));
-        while (isAccessible(child) && items.get(index).priority() > (items.get(child)).priority() ) {
+        while (isAccessible(child) &&
+                items.get(index).priority() > (items.get(child)).priority() ) {
             swap(index, child);
             index = child;
             child = min(getLeft(index), getRight(index));
